@@ -58,7 +58,11 @@ endfunction
 
 
 function! s:include_opt()
-	return "-I".join(filter(split(&path, ',') + g:marching_include_paths, 'v:val !~ ''\./'''), ' -I')
+	let include_opt = join(filter(split(&path, ',') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./'''), ' -I')
+	if empty(include_opt)
+		return ""
+	endif
+	return "-I" . include_opt
 endfunction
 
 

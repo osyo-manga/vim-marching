@@ -22,6 +22,7 @@ Clang を使用した C++ のコード補完を非同期で行うためのプラ
 <C-x><C-o> でコード補完を行います。
 補完処理は非同期で行われ、補完処理が完了したら |CursorHoldI| のタイミングで自動
 的にウィンドウが開かれます。
+また、補完ウィンドウが表示されている場合は更新が処理が行われません。
 補完処理中にはキー入力することもできます。
 
 Example: >
@@ -33,6 +34,15 @@ Example: >
 \		"C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++"
 \		"C:/cpp/boost"
 \	]
+
+	" neocomplete.vim と併用して使用する場合
+	if !exists('g:neocomplete#force_omni_input_patterns')
+	  let g:neocomplete#force_omni_input_patterns = {}
+	endif
+
+	let g:neocomplete#force_omni_input_patterns.cpp =
+		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
 <
 
 ==============================================================================

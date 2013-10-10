@@ -1,0 +1,73 @@
+*marching.txt* *marching*	C++ のコード補完を非同期で行います
+
+
+
+==============================================================================
+概要						*marching-introduction*
+
+Clang を使用した C++ のコード補完を非同期で行うためのプラグインです。
+
+- Requires
+    Executable
+      Clang        - http://clang.llvm.org/
+
+    Plugin
+      vimproc.vim  - https://github.com/Shougo/vimproc.vim
+      reunions.vim - https://github.com/osyo-manga/vim-reunions
+
+
+==============================================================================
+インターフェース				*marching-interface*
+
+------------------------------------------------------------------------------
+関数						*marching-functions*
+
+
+==============================================================================
+設定						*marching-setting*
+
+------------------------------------------------------------------------------
+変数						*marching-variables*
+
+g:marching_command				*g:marching_command*
+	外部コマンド clang のパスです。
+Default: >
+	let g:marching_command = "clang"
+<
+
+g:marching_command_option			*g:marching_command_option*
+	|g:marching_command| へ渡すコマンドオプションです。
+Default: >
+	let g:marching_command_option = ""
+<
+
+g:marching_wait_time				*g:marching_wait_time*
+	最初にコマンドを実行した際の待ち時間秒数を Float 値でを設定します。
+	この変数に設定された時間内に補完処理が終了すれば即座に補完ウィンドウが
+	表示されます。
+Default: >
+	let g:marching_wati_time = 0.5
+<
+
+g:marching_enable_auto_select			*g:marching_enable_auto_select*
+	0 が設定されていれば候補は選択されません。
+Default: >
+	let g:marching_enable_auto_select = 0
+<
+
+g:marching_include_paths			*g:marching_include_paths*
+	参照するインクルードディレクトリのパスをリストで設定します。
+	また、この変数以外にも 'path' に設定されているディレクトリもインクルー
+	ドディレクトリとして使用されます。
+Default: >
+	let g:marching_include_paths = []
+<
+
+
+==============================================================================
+使用例						*marching-example*
+
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

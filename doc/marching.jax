@@ -36,6 +36,8 @@ Example: >
 \	]
 
 	" neocomplete.vim と併用して使用する場合
+	let g:marching_enable_neocomplete = 1
+
 	if !exists('g:neocomplete#force_omni_input_patterns')
 	  let g:neocomplete#force_omni_input_patterns = {}
 	endif
@@ -90,6 +92,13 @@ g:marching_include_paths			*g:marching_include_paths*
 	ドディレクトリとして使用されます。
 Default: >
 	let g:marching_include_paths = []
+<
+
+g:marching_enable_neocomplete			*g:marching_enable_neocomplete*
+	|neocomplete.vim| と併用して使用する場合は 1 を設定する必要がありま
+	す。
+Default: >
+	let g:marching_enable_neocomplete = 0
 <
 
 

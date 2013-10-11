@@ -25,8 +25,6 @@ function! marching#complete#popup_pos()
 \		: "\<C-p>"
 endfunction
 
-inoremap <silent> <Plug>(marching_start_auto_complete)
-   \ <C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
 
 
 function! s:parse_complete_word(word)
@@ -125,6 +123,7 @@ function! s:complete_process.start(context)
 		let result = s:parse_complete_result(a:output)
 		call s:log("command result", string(result))
 		if empty(result)
+			echo "marching completion not found"
 			return
 		endif
 		call s:on_complete_finish(self.marching_context, result)
@@ -154,9 +153,9 @@ endfunction
 
 function! s:on_complete_finish(context, result)
 	call add(s:complete_cache, [a:context, a:result])
-	call feedkeys("\<Plug>(marching_start_auto_complete)")
 	echo "marching completion finish"
 	call s:log("complete_finish")
+	call feedkeys("\<Plug>(marching_start_auto_complete)")
 endfunction
 
 function! s:complete_start()
@@ -183,7 +182,11 @@ function! marching#complete#omnifunc(findstart, base)
 		endif
 		call feedkeys("\<C-g>\<ESC>", 'n')
 		call s:complete_start()
-		return -1
+		if g:marching_enable_neocomplete
+			return -1
+		else
+			return -3
+		endif
 	endif
 	let completion = s:get_completion(s:make_current_context())
 	if empty(completion)

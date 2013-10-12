@@ -29,10 +29,10 @@
 
 Example: >
 	" clang コマンドの設定
-	let g:marching_command = "C:/clang"
+	let g:marching_clang_command = "C:/clang.exe"
 
 	" オプションを追加する場合
-	let g:marching_command_option="-std=c++1y"
+	let g:marching_clang_command_option="-std=c++1y"
 
 	" インクルードディレクトリのパスを設定
 	let g:marching_include_paths = [
@@ -79,16 +79,16 @@ Example: >
 ------------------------------------------------------------------------------
 変数						*marching-variables*
 
-g:marching_command				*g:marching_command*
+g:marching_clang_command			*g:marching_clang_command*
 	外部コマンド clang のパスです。
 Default: >
-	let g:marching_command = "clang"
+	let g:marching_clang_command = "clang"
 <
 
-g:marching_command_option			*g:marching_command_option*
-	|g:marching_command| へ渡すコマンドオプションです。
+g:marching_clang_command_option			*g:marching_clang_command_option*
+	|g:marching_clang_command| へ渡すコマンドオプションです。
 Default: >
-	let g:marching_command_option = ""
+	let g:marching_clang_command_option = ""
 <
 
 g:marching_wait_time				*g:marching_wait_time*

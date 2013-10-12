@@ -29,13 +29,13 @@ displayed. You can input while processing the completion.
 
 Example: >
 	" path to clang command
-	let g:marching_command = "C:/clang"
+	let g:marching_clang_command = "C:/clang.exe"
 
 	" directory paths to include
 	let g:marching_include_paths = [
-\		"C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++"
-\		"C:/cpp/boost"
-\	]
+	\	"C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++"
+	\	"C:/cpp/boost"
+	\]
 
 	" cooperate with neocomplete.vim
 	let g:marching_enable_neocomplete = 1
@@ -46,7 +46,6 @@ Example: >
 
 	let g:neocomplete#force_omni_input_patterns.cpp =
 		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-
 <
 
 ==============================================================================
@@ -62,16 +61,16 @@ SETTING						*marching-setting*
 ------------------------------------------------------------------------------
 VARIABLES						*marching-variables*
 
-g:marching_command				*g:marching_command*
+g:marching_clang_command				*g:marching_clang_command*
 	Path to clang command.
 Default value is: >
-	let g:marching_command = "clang"
+	let g:marching_clang_command = "clang"
 <
 
-g:marching_command_option			*g:marching_command_option*
-	Command line options for|g:marching_command|.
+g:marching_clang_command_option			*g:marching_clang_command_option*
+	Command line options for|g:marching_clang_command|.
 Default value is: >
-	let g:marching_command_option = ""
+	let g:marching_clang_command_option = ""
 <
 
 g:marching_wait_time				*g:marching_wait_time*

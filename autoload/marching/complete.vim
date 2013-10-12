@@ -135,7 +135,9 @@ function! s:complete_process.start(context)
 		call delete(self.tempfile)
 		call self.base_kill()
 	endfunction
-	call self.process.wait_for(g:marching_wait_time)
+	if g:marching_wait_time != 0.0
+		call self.process.wait_for(g:marching_wait_time)
+	endif
 endfunction
 
 function! marching#complete#update_complete_process()

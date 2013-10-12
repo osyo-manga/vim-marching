@@ -108,11 +108,11 @@ function! s:complete_process.start(context)
 	endif
 
 	let command = s:clang_complete_command(
-\		g:marching_clang_command,
+\		get(b:, "marching_clang_command", g:marching_clang_command),
 \		tempfile,
 \		a:context.pos[0],
 \		a:context.pos[1],
-\		g:marching_clang_command_option . " " . s:include_opt()
+\		s:include_opt() . " " . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
 \	)
 	call s:log("command", command)
 

@@ -155,7 +155,7 @@ function! s:on_complete_finish(context, result)
 	call add(s:complete_cache, [a:context, a:result])
 	echo "marching completion finish"
 	call s:log("complete_finish")
-	call feedkeys("\<Plug>(marching_start_auto_complete)")
+	call feedkeys("\<Plug>(marching_start_omni_complete)")
 endfunction
 
 function! s:complete_start()

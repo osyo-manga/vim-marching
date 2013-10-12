@@ -16,7 +16,8 @@ let g:marching_enable_neocomplete = get(g:, "marching_enable_neocomplete", 0)
 let g:marching_debug = get(g:, "marching_debug", 0)
 
 
-inoremap <silent> <Plug>(marching_start_auto_complete)
+
+inoremap <silent> <Plug>(marching_start_omni_complete)
    \ <C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
 
 

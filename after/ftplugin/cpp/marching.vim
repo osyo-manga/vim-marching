@@ -1,5 +1,5 @@
 
-if !executable(g:marching_command)
+if !executable(g:marching_clang_command)
 	finish
 endif
 

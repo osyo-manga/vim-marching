@@ -1,0 +1,114 @@
+*marching.txt* *marching*	Asynchronous code completion for C++
+
+
+
+==============================================================================
+INTRODUCTION						*marching-introduction*
+
+*vim-marching* is a Vim plugin to complete C++ code using Clang, a
+C/C++/Objective-C front end for LLVM.
+
+- Requirements
+    - Executable
+      Clang        - http://clang.llvm.org/
+
+    - Plugin
+      vimproc.vim  - https://github.com/Shougo/vimproc.vim
+      reunions.vim - https://github.com/osyo-manga/vim-reunions
+
+
+==============================================================================
+USAGE						*marching-usage*
+
+Execute code completion with <C-x><C-o>.
+The completion is executed asynchronously and a popup menu will be
+automatically opened after the completion has been completed at
+|CursorHoldI|.
+Additionally, the completion is not updated while the popup menu is
+displayed. You can input while processing the completion.
+
+Example: >
+	" path to clang command
+	let g:marching_command = "C:/clang"
+
+	" directory paths to include
+	let g:marching_include_paths = [
+\		"C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++"
+\		"C:/cpp/boost"
+\	]
+
+	" cooperate with neocomplete.vim
+	let g:marching_enable_neocomplete = 1
+
+	if !exists('g:neocomplete#force_omni_input_patterns')
+	  let g:neocomplete#force_omni_input_patterns = {}
+	endif
+
+	let g:neocomplete#force_omni_input_patterns.cpp =
+		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+
+<
+
+==============================================================================
+INTERFACE				*marching-interface*
+
+------------------------------------------------------------------------------
+FUNCTIONS						*marching-functions*
+
+
+==============================================================================
+SETTING						*marching-setting*
+
+------------------------------------------------------------------------------
+VARIABLES						*marching-variables*
+
+g:marching_command				*g:marching_command*
+	Path to clang command.
+Default value is: >
+	let g:marching_command = "clang"
+<
+
+g:marching_command_option			*g:marching_command_option*
+	Command line options for|g:marching_command|.
+Default value is: >
+	let g:marching_command_option = ""
+<
+
+g:marching_wait_time				*g:marching_wait_time*
+	Wait time for executing the command at first. The unit is second and the
+	value is floating point.
+	If the process of completion has been done in |g:marching_wait_time|
+	seconds, a popup menu will be opened immediately.
+Default value is: >
+	let g:marching_wait_time = 0.5
+<
+
+g:marching_enable_auto_select			*g:marching_enable_auto_select*
+	If this value is equivalent to 1, first completion item is selected
+	automatically. If the value is equivalent to 0, no item is selected.
+Default value is: >
+	let g:marching_enable_auto_select = 0
+<
+
+g:marching_include_paths			*g:marching_include_paths*
+	This is |List| of path strings to include. Clang also includes directories
+	in 'path' as include directories.
+Default value is: >
+	let g:marching_include_paths = []
+<
+
+g:marching_enable_neocomplete			*g:marching_enable_neocomplete*
+	If you use |vim-marching| with |neocomplete|, you need to set this value
+	to 1.
+Default value is: >
+	let g:marching_enable_neocomplete = 0
+<
+
+
+==============================================================================
+EXAMPLE						*marching-example*
+
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl

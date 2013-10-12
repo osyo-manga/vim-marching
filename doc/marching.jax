@@ -5,7 +5,7 @@
 ==============================================================================
 概要						*marching-introduction*
 
-Clang を使用した C++ のコード補完を非同期で行うためのプラグインです。
+*vim-marching* は Clang を使用した C++ のコード補完を非同期で行うためのプラグインです。
 
 - Requires
     Executable
@@ -114,8 +114,7 @@ Default: >
 <
 
 g:marching_enable_neocomplete			*g:marching_enable_neocomplete*
-	|neocomplete.vim| と併用して使用する場合は 1 を設定する必要がありま
-	す。
+	|neocomplete| と併用して使用する場合は 1 を設定する必要があります。
 Default: >
 	let g:marching_enable_neocomplete = 0
 <

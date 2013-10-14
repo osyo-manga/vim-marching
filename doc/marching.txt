@@ -108,7 +108,7 @@ b:marching_clang_command			*b:marching_clang_command*
 	|g:marching_clang_command|.
 
 b:marching_clang_command_option			*b:marching_clang_command_option*
-	This is buffer local version of |g:marching_clang_command|_option.
+	This is buffer local version of |g:marching_clang_command_option|.
 	If this value exsits in a buffer, the value is used instead of
 	|g:marching_clang_command_option|.
 

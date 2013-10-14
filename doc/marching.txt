@@ -102,7 +102,15 @@ g:marching_enable_neocomplete			*g:marching_enable_neocomplete*
 Default value is: >
 	let g:marching_enable_neocomplete = 0
 <
+b:marching_clang_command			*b:marching_clang_command*
+	This is buffer local version of |g:marching_clang_command|.
+	If this value exsits in a buffer, the value is used instead of
+	|g:marching_clang_command|.
 
+b:marching_clang_command_option			*b:marching_clang_command_option*
+	This is buffer local version of |g:marching_clang_command|_option.
+	If this value exsits in a buffer, the value is used instead of
+	|g:marching_clang_command_option|.
 
 ==============================================================================
 EXAMPLE						*marching-example*

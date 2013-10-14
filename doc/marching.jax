@@ -124,8 +124,8 @@ b:marching_clang_command			*b:marching_clang_command*
 	|g:marching_clang_command| よりも優先して使用されます。
 
 b:marching_clang_command_option			*b:marching_clang_command_option*
-	|b:marching_clang_command_option| と同等の設定です。
-	|b:marching_clang_command_option| よりも優先して使用されます。
+	|g:marching_clang_command_option| と同等の設定です。
+	|g:marching_clang_command_option| よりも優先して使用されます。
 
 
 ==============================================================================

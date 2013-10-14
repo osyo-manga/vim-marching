@@ -2,6 +2,8 @@
 
 Clang を使用して非同期で C++ のコード補完を行うためのプラグインです。
 
+Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/master/doc/marching.txt).
+
 ##Requirement
 
 * __Executable__

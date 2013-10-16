@@ -22,5 +22,15 @@ inoremap <silent> <Plug>(marching_start_omni_complete)
    \ <C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
 
 
+function! s:clear_cache()
+	call marching#clear_cache(marching#current_context())
+	call marching#clang_command#cancel()
+	return ""
+endfunction
+
+inoremap <silent> <Plug>(marching_force_start_omni_complete)
+   \ <C-r>=<SID>clear_cache()<CR><C-e><C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
+
+
 let &cpo = s:save_cpo
 unlet s:save_cpo

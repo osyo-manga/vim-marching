@@ -8,7 +8,7 @@ setlocal omnifunc=marching#complete
 
 augroup plugin-marching
 	autocmd! * <buffer>
-	autocmd InsertLeave <buffer> call marching#complete#clear_complete_cache()
-	autocmd InsertCharPre <buffer> call marching#complete#update_complete_process()
+	autocmd InsertCharPre <buffer> call marching#clang_command#update_complete_process()
+	autocmd InsertLeave   <buffer> call marching#clang_command#cancel()
 augroup END
 

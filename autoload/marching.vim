@@ -166,7 +166,7 @@ function! marching#complete(findstart, base)
 			return s:context.pos[1] - 1
 		endif
 
-		let result = marching#clang_command#complete(s:context)
+		let result = marching#{g:marching_backend}#complete(s:context)
 		if !empty(result)
 			call s:add_cache(s:context, result)
 			return s:context.pos[1] - 1

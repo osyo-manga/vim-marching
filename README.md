@@ -55,6 +55,9 @@ imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 " キャッシュを削除してからオムに補完を行う
 imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
+
+" 非同期ではなくて、同期処理でコード補完を行う場合
+" let g:marching_backend = "sync_clang_command"
 ```
 
 

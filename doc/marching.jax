@@ -179,6 +179,19 @@ Default: >
 	let g:marching_debug = 0
 <
 
+g:marching_backend			*g:marching_backend*
+	コード補完を行う処理を設定します。
+	この変数には以下の文字列が設定できます。
+	
+	"clang_command"      : 非同期処理でコード補完を行います。
+	"sync_clang_command" : 同期処理でコード補完を行います。
+			     : この設定の場合は |reunions| と |vimproc| には依
+			       存しなくなります
+Default: >
+	let g:marching_backend = "clang_command"
+<
+
+
 ==============================================================================
 使用例						*marching-example*
 

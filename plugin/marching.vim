@@ -15,7 +15,7 @@ let g:marching_wait_time            = get(g:, "marching_wait_time", 0.5)
 let g:marching_enable_auto_select   = get(g:, "marching_enable_auto_select", 0)
 let g:marching_enable_neocomplete   = get(g:, "marching_enable_neocomplete", 0)
 let g:marching_debug                = get(g:, "marching_debug", 0)
-
+let g:marching_backend              = get(g:, "marching_backend", "clang_command")
 
 
 inoremap <silent> <Plug>(marching_start_omni_complete)

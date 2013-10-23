@@ -32,7 +32,7 @@ function! marching#sync_clang_command#complete(context)
 		echo "marching completion finish"
 		return marching#clang_command#parse_complete_result(result)
 	finally
-		call delete(
+		call delete(tempfile)
 	endtry
 endfunction
 

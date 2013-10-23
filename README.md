@@ -46,11 +46,17 @@ let g:neocomplete#force_omni_input_patterns.cpp =
 	\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
 " 処理のタイミングを制御する
+" 短いほうがより早く補完ウィンドウが表示される
 set updatetime=200
 
 " オムニ補完時に補完ワードを挿入したくない場合
 imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
+
+" キャッシュを削除してからオムに補完を行う
+imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
+
 ```
+
 
 ##Future
 

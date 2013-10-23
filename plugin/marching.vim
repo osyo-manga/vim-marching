@@ -28,8 +28,20 @@ function! s:clear_cache()
 	return ""
 endfunction
 
+
 inoremap <silent> <Plug>(marching_force_start_omni_complete)
    \ <C-r>=<SID>clear_cache()<CR><C-e><C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
+
+
+function! s:clear_cache()
+	call marching#clear_cache_all()
+	call marching#clang_command#cancel()
+	return ""
+endfunction
+
+command! -bar MarchingClearCache call s:clear_cache()
+
+command! -bar MarchingDebugLog echo marching#log()
 
 
 let &cpo = s:save_cpo

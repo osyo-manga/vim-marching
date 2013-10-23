@@ -5,7 +5,7 @@
 ==============================================================================
 概要						*marching-introduction*
 
-*vim-marching* は Clang を使用した C++ のコード補完を非同期で行うためのプラグインです。
+*marching,vim* は Clang を使用した C++ のコード補完を非同期で行うためのプラグインです。
 
 - Requires
     Executable
@@ -57,9 +57,49 @@ Example: >
 	imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 
 <
+==============================================================================
+キャッシング					*marching-caching*
+
+|marching.vim| では補完時の変数名などをキーとして結果を保存しておき、2回目の補
+完時にその結果を使用します。
+この時のデータはバッファごとに保持されます。
+同じバッファ内であればスコープが違っていてもキーが同じであれば同じデータが使
+用されるので注意して下さい。
+
+Example: >
+	void
+	func1(){
+		Hoge x;
+		x.
+	}
+
+	void
+	func2(){
+		Foo x;
+		x.	// func1() の x. の補完データが使用される可能性がある
+	}
+<
+
+このデータは意図的に削除しない限り、再度取得は行われません。
+補完時に補完データを再取得して補完したい場合は、
+|<Plug>(marching_force_start_omni_complete)| を使用して下さい。
+また、|:MarchingClearCache| でバッファ内の補完データをすべて削除する事ができま
+す。
+
 
 ==============================================================================
 インターフェース				*marching-interface*
+
+------------------------------------------------------------------------------
+コマンド					*marching-commands*
+
+:MarchingClearCache				*:MarchingClearCache*
+	バッファのキャッシュをクリアする。
+
+:MarchingDebugLog				*:MarchingDebugLog*
+	デバッグログを出力する。
+	ここで出力されるログは |g:marching_debug| に 1 が設定されている場合に
+	記録されます。
 
 ------------------------------------------------------------------------------
 関数						*marching-functions*
@@ -72,6 +112,11 @@ Example: >
 	このマッピングでオムニ補完を実行した場合、補完ワードはカーソル位置に挿
 	入されません。
 
+					*<Plug>(marching_force_start_omni_complete)*
+<Plug>(marching_force_start_omni_complete)
+	基本的には |<Plug>(marching_start_omni_complete)| と同じ挙動ですが、補
+	完情報の再取得を行います。
+	詳しくは |marching-caching| を参照して下さい。
 
 ==============================================================================
 設定						*marching-setting*
@@ -127,6 +172,12 @@ b:marching_clang_command_option			*b:marching_clang_command_option*
 	|g:marching_clang_command_option| と同等の設定です。
 	|g:marching_clang_command_option| よりも優先して使用されます。
 
+g:marching_debug			*g:marching_debug*
+	1 が設定されているとデバッグ用のログを記録します。
+	このログは |:MarchingDebugLog| で確認する事ができます。
+Default: >
+	let g:marching_debug = 0
+<
 
 ==============================================================================
 使用例						*marching-example*

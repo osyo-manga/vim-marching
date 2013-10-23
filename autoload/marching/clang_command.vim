@@ -11,6 +11,10 @@ function! s:include_opt()
 	return "-I" . include_opt
 endfunction
 
+function! marching#clang_command#include_opt()
+	return s:include_opt()
+endfunction
+
 
 function! s:clang_complete_command(cmd, file, line, col, args)
 	if !filereadable(a:file)
@@ -19,13 +23,17 @@ function! s:clang_complete_command(cmd, file, line, col, args)
 	return printf("%s -cc1 -std=c++11 -fsyntax-only %s -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
 endfunction
 
+function! marching#clang_command#clang_complete_command(...)
+	return call("s:clang_complete_command", a:000)
+endfunction
+
 
 function! s:parse_complete_result_line(line)
 	let pattern = '^COMPLETION: \(.*\) : \(.*\)$'
 	if a:line !~ pattern
 		return { "word" : matchstr(a:line, '^COMPLETION: \zs.*\ze$') }
 	endif
-	let result = eval(substitute(a:line, pattern, '{ "word" : "\1", "abbr" : "\2" }', ""))
+	let result = eval(substitute(a:line, pattern, '{ "word" : "\1", "abbr" : "\2", "dup" : 1 }', ""))
 	let result.abbr = substitute(result.abbr, '\[#\(.*\)#\]\(.*\)', '\2 -> \1', 'g')
 	let result.abbr = substitute(result.abbr, '\(<#\|#>\)', '', 'g')
 	return result
@@ -36,6 +44,9 @@ function! s:parse_complete_result(output)
 	return map(split(a:output, "\n"), 's:parse_complete_result_line(v:val)')
 endfunction
 
+function! marching#clang_command#parse_complete_result(output)
+	return s:parse_complete_result(a:output)
+endfunction
 
 function! s:make_tempfile(filename, bufnr)
 	let filename = substitute(a:filename, '\', '/', "g")
@@ -45,6 +56,11 @@ function! s:make_tempfile(filename, bufnr)
 		return filename
 	endif
 endfunction
+
+function! marching#clang_command#make_tempfile(filename, bufnr)
+	return s:make_tempfile(a:filename, a:bufnr)
+endfunction
+
 
 
 let s:complete_process = {

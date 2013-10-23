@@ -3,6 +3,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+function! marching#get_include_dirs()
+	return filter(split(&path, ',') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./''')
+endfunction
+
+
 function! marching#popup_pos()
 	return !pumvisible() ? ""
 \		: g:marching_enable_auto_select ? "\<C-p>\<Down>"
@@ -177,7 +182,7 @@ function! marching#complete(findstart, base)
 	if empty(completion)
 		return []
 	endif
-	return filter(copy(completion), 'v:val =~ "^".a:base')
+	return filter(copy(completion), 'v:val.word =~ "^".a:base')
 endfunction
 
 

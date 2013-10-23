@@ -4,7 +4,7 @@ set cpo&vim
 
 
 function! s:include_opt()
-	let include_opt = join(filter(split(&path, ',') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./'''), ' -I')
+	let include_opt = join(marching#get_include_dirs(), ' -I')
 	if empty(include_opt)
 		return ""
 	endif
@@ -20,8 +20,20 @@ function! s:clang_complete_command(cmd, file, line, col, args)
 endfunction
 
 
+function! s:parse_complete_result_line(line)
+	let pattern = '^COMPLETION: \(.*\) : \(.*\)$'
+	if a:line !~ pattern
+		return { "word" : matchstr(a:line, '^COMPLETION: \zs.*\ze$') }
+	endif
+	let result = eval(substitute(a:line, pattern, '{ "word" : "\1", "abbr" : "\2" }', ""))
+	let result.abbr = substitute(result.abbr, '\[#\(.*\)#\]\(.*\)', '\2 -> \1', 'g')
+	let result.abbr = substitute(result.abbr, '\(<#\|#>\)', '', 'g')
+	return result
+endfunction
+
+
 function! s:parse_complete_result(output)
-	return map(split(a:output, "\n"), 'matchstr(v:val, ''COMPLETION: \zs.*\ze :'')')
+	return map(split(a:output, "\n"), 's:parse_complete_result_line(v:val)')
 endfunction
 
 

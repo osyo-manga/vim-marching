@@ -3,6 +3,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+function! marching#get_included_files(bufnr)
+	return filter(map(getline(a:bufnr, 1, "$"), 'matchstr(v:val, ''^\s*#\s*include\s*[<"]\zs.*\ze[">]'')'), '!empty(v:val)')
+endfunction
+
+
 function! marching#get_include_dirs()
 	return filter(split(&path, ',') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./''')
 endfunction
@@ -182,7 +187,14 @@ function! marching#complete(findstart, base)
 	if empty(completion)
 		return []
 	endif
-	return filter(copy(completion), 'v:val.word =~ "^".a:base')
+
+	let result = deepcopy(filter(copy(completion), 'v:val.word =~ "^".a:base'))
+	let len = max(map(copy(result), "len(v:val.word)"))
+	let format = "%-" . len . "s : %s"
+	for _ in result
+		let _.abbr = printf(format, _.word, _.abbr)
+	endfor
+	return result
 endfunction
 
 

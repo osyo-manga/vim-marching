@@ -16,6 +16,7 @@ let g:marching_enable_auto_select   = get(g:, "marching_enable_auto_select", 0)
 let g:marching_enable_neocomplete   = get(g:, "marching_enable_neocomplete", 0)
 let g:marching_debug                = get(g:, "marching_debug", 0)
 let g:marching_backend              = get(g:, "marching_backend", "clang_command")
+" let g:marching_clang_command_updatetime = 
 
 
 inoremap <silent> <Plug>(marching_start_omni_complete)
@@ -30,7 +31,7 @@ endfunction
 
 
 inoremap <silent> <Plug>(marching_force_start_omni_complete)
-   \ <C-r>=<SID>clear_cache()<CR><C-e><C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
+   \ <C-r>=<SID>clear_cache()<CR><C-x><C-o><C-r>=marching#complete#popup_pos()<CR>
 
 
 function! s:clear_cache()

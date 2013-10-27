@@ -189,7 +189,7 @@ function! marching#complete(findstart, base)
 	endif
 
 	let result = deepcopy(filter(copy(completion), 'v:val.word =~ "^".a:base'))
-	let len = max(map(copy(result), "len(v:val.word)"))
+	let len = min([max(map(copy(result), "len(v:val.word)")), 10])
 	let format = "%-" . len . "s : %s"
 	for _ in result
 		let _.abbr = printf(format, _.word, get(_, "abbr"))

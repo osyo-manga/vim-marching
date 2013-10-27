@@ -192,7 +192,7 @@ function! marching#complete(findstart, base)
 	let len = max(map(copy(result), "len(v:val.word)"))
 	let format = "%-" . len . "s : %s"
 	for _ in result
-		let _.abbr = printf(format, _.word, _.abbr)
+		let _.abbr = printf(format, _.word, get(_, "abbr"))
 	endfor
 	return result
 endfunction

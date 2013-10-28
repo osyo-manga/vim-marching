@@ -132,8 +132,9 @@ endfunction
 
 
 function! marching#clang_command#update_complete_process()
-	if has_key(s:complete_process.process, "update")
-		call s:complete_process.process.update()
+	if has_key(s:complete_process.process, "apply")
+		echom "marching#clang_command#update_complete_process"
+		call s:complete_process.process.apply()
 	endif
 endfunction
 

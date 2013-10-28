@@ -14,6 +14,7 @@ Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/ma
 
 
 ##Screencapture
+![test](https://f.cloud.github.com/assets/214488/1419479/bf4c31d6-3fcc-11e3-97fb-928f8006691e.gif)
 
 ![marching1](https://f.cloud.github.com/assets/214488/1320244/ff09818e-334c-11e3-8569-075f31b50984.gif)
 
@@ -66,8 +67,6 @@ imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 * C++ 以外の対応
  * C言語
  * Objective-C
-* キャッシングの性能を上げる
-* コード補完ウィンドウで表示される情報の追加
- * 関数の引数など
-
+* スニペットの対応
+* neocomplete.vim との連携
 

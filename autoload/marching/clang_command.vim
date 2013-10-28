@@ -143,7 +143,6 @@ function! marching#clang_command#cancel()
 endfunction
 
 function! marching#clang_command#complete(context)
-" 	call marching#clang_command#update_complete_process()
 	if has_key(s:complete_process, "result")
 \	&& has_key(s:complete_process, "context")
 \	&& s:complete_process.context.keyword ==# a:context.keyword

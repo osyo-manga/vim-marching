@@ -198,6 +198,7 @@ g:marching_enable_refresh_always		*g:marching_enable_refresh_always*
 	い。
 	他の補完処理の補完ウィンドウが出ている状態で処理の更新を行いたい場合に
 	も有効です。
+	また、1 を設定すると補完ウィンドウがちらつく事があります。
 Default: >
 	let g:marching_enable_refresh_always = 0
 <

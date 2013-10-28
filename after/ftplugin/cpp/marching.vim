@@ -6,9 +6,9 @@ endif
 setlocal omnifunc=marching#complete
 
 
-augroup plugin-marching
+augroup plugin-marching-filetype
 	autocmd! * <buffer>
-	autocmd InsertCharPre <buffer> call marching#clang_command#update_complete_process()
+	autocmd InsertCharPre <buffer> call marching#check_complete_always()
 	autocmd InsertLeave   <buffer> call marching#clang_command#cancel()
 augroup END
 

@@ -163,7 +163,21 @@ function! s:add_cache(context, completion)
 endfunction
 
 
+function! marching#check_complete_always()
+	if g:marching_enable_refresh_always
+		if exists("*marching#" . g:marching_backend . "#update_complete_process")
+			call marching#{g:marching_backend}#update_complete_process()
+		endif
+		if get(s:, "complete_started", 0)
+\		&& pumvisible()
+			call feedkeys("\<Plug>(marching_start_omni_complete)")
+		endif
+	endif
+endfunction
+
+
 function! marching#complete(findstart, base)
+	let s:complete_started = 1
 	if a:findstart
 		let s:context = s:current_context()
 		let completion = s:get_cache(s:context)
@@ -196,6 +210,13 @@ function! marching#complete(findstart, base)
 	endfor
 	return result
 endfunction
+
+
+augroup plugin-marching
+	autocmd!
+	autocmd CompleteDone * let s:complete_started = 0
+augroup END
+
 
 
 

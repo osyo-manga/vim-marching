@@ -41,7 +41,7 @@ function! s:clear_cache()
 	return ""
 endfunction
 
-command! -bar MarchingClearCache call s:clear_cache()
+command! -bar MarchingBufferClearCache call s:clear_cache()
 
 command! -bar MarchingDebugLog echo marching#log()
 

@@ -83,7 +83,7 @@ Example: >
 このデータは意図的に削除しない限り、再度取得は行われません。
 補完時に補完データを再取得して補完したい場合は、
 |<Plug>(marching_force_start_omni_complete)| を使用して下さい。
-また、|:MarchingClearCache| でバッファ内の補完データをすべて削除する事ができま
+また、|:MarchingBufferClearCache| でバッファ内の補完データをすべて削除する事ができま
 す。
 
 
@@ -93,7 +93,7 @@ Example: >
 ------------------------------------------------------------------------------
 コマンド					*marching-commands*
 
-:MarchingClearCache				*:MarchingClearCache*
+:MarchingBufferClearCache			*:MarchingBufferClearCache*
 	バッファのキャッシュをクリアする。
 
 :MarchingDebugLog				*:MarchingDebugLog*

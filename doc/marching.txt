@@ -156,12 +156,12 @@ Default value is: >
 b:marching_clang_command			*b:marching_clang_command*
 	This is buffer local version of |g:marching_clang_command|.
 	If this value exists in a buffer, the value is used instead of
-	|g:marching_clang_command|.
+	|g:marching_clang_command| in the buffer.
 
 b:marching_clang_command_option			*b:marching_clang_command_option*
 	This is buffer local version of |g:marching_clang_command_option|.
 	If this value exists in a buffer, the value is used instead of
-	|g:marching_clang_command_option|.
+	|g:marching_clang_command_option| in the buffer.
 
 g:marching_debug				*g:marching_debug*
 	If this value is set to 1, the log for debug is recorded.  You can

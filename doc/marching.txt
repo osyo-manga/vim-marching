@@ -5,7 +5,7 @@
 ==============================================================================
 INTRODUCTION						*marching-introduction*
 
-*vim-marching* is a Vim plugin to complete C++ code using Clang, a
+*marching.vim* is a Vim plugin to complete C++ code using Clang, a
 C/C++/Objective-C front end for LLVM.
 
 - Requirements
@@ -49,10 +49,61 @@ Example: >
 <
 
 ==============================================================================
+CACHING						*marching-caching*
+
+In |marching.vim|, the previous results of completion like names of variables
+are cached as dictionary and they will be used at next completion.  The cache
+is buffer local. So, note that, if the name of completion candidate is the
+same as one of cache, the cache will be used even if the scope is different.
+
+Example: >
+	void
+	func1(){
+		Hoge x;
+		x.
+	}
+
+	void
+	func2(){
+		Foo x;
+		x.	// completion cache in func1() may be used
+	}
+<
+This cache remains as long as you don't delete it manually.
+If you want to refresh candidates of completion, use
+|<Plug>(marching_force_start_omni_complete)|.  You can also delete all cache
+using |:MarchingBufferClearCache|.
+
+
+==============================================================================
 INTERFACE				*marching-interface*
 
 ------------------------------------------------------------------------------
-FUNCTIONS						*marching-functions*
+COMMANDS					*marching-commands*
+
+:MarchingBufferClearCache			*:MarchingBufferClearCache*
+	Clear cache in the buffer.
+
+:MarchingDebugLog				*:MarchingDebugLog*
+	Echo debug log.
+	If you set |g:marching_debug| to 1, the log output in this command
+	would be recorded.
+
+------------------------------------------------------------------------------
+FUNCTIONS					*marching-functions*
+
+------------------------------------------------------------------------------
+MAPPINGS					*marching-key-mappings*
+
+<Plug>(marching_start_omni_complete)		*<Plug>(marching_start_omni_complete)*
+	Execute omni completion.
+	The completion word would not be inserted at the cursor.
+
+					*<Plug>(marching_force_start_omni_complete)*
+<Plug>(marching_force_start_omni_complete)
+	The same as |<Plug>(marching_start_omni_complete)| except for
+	refreshing the completion information.
+	See |marching-caching| for more detail.
 
 
 ==============================================================================
@@ -104,13 +155,41 @@ Default value is: >
 <
 b:marching_clang_command			*b:marching_clang_command*
 	This is buffer local version of |g:marching_clang_command|.
-	If this value exsits in a buffer, the value is used instead of
-	|g:marching_clang_command|.
+	If this value exists in a buffer, the value is used instead of
+	|g:marching_clang_command| in the buffer.
 
 b:marching_clang_command_option			*b:marching_clang_command_option*
 	This is buffer local version of |g:marching_clang_command_option|.
-	If this value exsits in a buffer, the value is used instead of
-	|g:marching_clang_command_option|.
+	If this value exists in a buffer, the value is used instead of
+	|g:marching_clang_command_option| in the buffer.
+
+g:marching_debug				*g:marching_debug*
+	If this value is set to 1, the log for debug is recorded.  You can
+	check the log with |:MarchingDebugLog|.
+Default: >
+	let g:marching_debug = 0
+<
+
+g:marching_backend				*g:marching_backend*
+	This variable controls the process of completion.
+	Below strings are allowed as this variable's value.
+	
+	"clang_command"      : Do code completion asynchronously.
+	"sync_clang_command" : Do code completion synchronously.  If this
+	                       value is set, |marching.vim| doesn't have
+	                       dependencies on |reunions| and |vimproc|.
+Default: >
+	let g:marching_backend = "clang_command"
+<
+
+g:marching_enable_refresh_always		*g:marching_enable_refresh_always*
+	If this value is set to 1, a completion function is called every key
+	input.  It is also useful when you want to update the process at other
+	completion window running.
+	Note that a completion window may flicker.
+Default: >
+	let g:marching_enable_refresh_always = 0
+<
 
 ==============================================================================
 EXAMPLE						*marching-example*

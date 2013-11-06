@@ -37,6 +37,11 @@ function! marching#log()
 endfunction
 
 
+function! marching#clear_log()
+	let s:log_data = ""
+endfunction
+
+
 function! s:get_bracket(char)
 	return get({
 \		')' : '(',

@@ -44,6 +44,7 @@ endfunction
 command! -bar MarchingBufferClearCache call s:clear_cache()
 
 command! -bar MarchingDebugLog echo marching#log()
+command! -bar MarchingDebugClearLog echo marching#clear_log()
 
 
 let &cpo = s:save_cpo

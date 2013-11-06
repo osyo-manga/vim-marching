@@ -3,10 +3,9 @@ if !executable(g:marching_clang_command)
 	finish
 endif
 
-
 setlocal omnifunc=marching#complete
 
-let b:marching_clang_command_default_options = "-cc1 -std=c++11 -fsyntax-only"
+let b:marching_clang_command_default_options = "-cc1 -fsyntax-only"
 
 augroup plugin-marching-filetype
 	autocmd! * <buffer>

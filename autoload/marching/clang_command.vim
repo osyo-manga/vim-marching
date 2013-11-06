@@ -4,7 +4,7 @@ set cpo&vim
 
 
 function! s:include_opt()
-	let include_opt = join(marching#get_include_dirs(), ' -I')
+	let include_opt = join(filter(marching#get_include_dirs(), 'v:val !=# "."'), ' -I')
 	if empty(include_opt)
 		return ""
 	endif
@@ -20,7 +20,7 @@ function! s:clang_complete_command(cmd, file, line, col, args)
 	if !filereadable(a:file)
 		return ""
 	endif
-	return printf("%s -cc1 -std=c++11 -fsyntax-only %s -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
+	return printf("%s %s -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
 endfunction
 
 function! marching#clang_command#clang_complete_command(...)
@@ -86,7 +86,8 @@ function! s:complete_process.start(context)
 	echo "marching completion start"
 	call marching#print_log("clang_command start")
 	call self.clear()
-	let tempfile = s:make_tempfile(fnamemodify(a:context.bufnr, ":p:h") . "/marching_complete_temp.cpp", a:context.bufnr)
+	let ext = filereadable(bufname(a:context.bufnr)) ? fnamemodify(bufname(a:context.bufnr), ":e") : &filetype
+	let tempfile = s:make_tempfile(fnamemodify(bufname(a:context.bufnr), ":p:h") . "/marching_complete_temp." . ext, a:context.bufnr)
 	if !filereadable(tempfile)
 		return
 	endif
@@ -96,7 +97,11 @@ function! s:complete_process.start(context)
 \		tempfile,
 \		a:context.pos[0],
 \		a:context.pos[1],
-\		s:include_opt() . " " . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
+\			get(b:, "marching_clang_command_default_options", '-cc1 -fsyntax-only')
+\		  . " "
+\		  . s:include_opt()
+\		  . " "
+\		  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
 \	)
 	call marching#print_log("clang_command command", command)
 	let self.context = a:context

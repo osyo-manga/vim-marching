@@ -33,6 +33,7 @@ endfunction
 function! s:test_parse_keyword()
 	let owl_SID = owl#filename_to_SID("vim-marching/autoload/marching.vim")
 
+	OwlCheck s:get_keyword("homu; mami") is# ""
 	OwlCheck s:get_keyword("hoge.value") ==# "hoge."
 	OwlCheck s:get_keyword("hoge.") ==# "hoge."
 	OwlCheck s:get_keyword("std::has_xxx") ==# "std::"

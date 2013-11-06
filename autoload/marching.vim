@@ -184,15 +184,16 @@ endfunction
 function! marching#complete(findstart, base)
 	let s:complete_started = 1
 	if a:findstart
+		let s:completion = []
 		let s:context = s:current_context()
-		let completion = s:get_cache(s:context)
-		if !empty(completion)
+		let s:completion = s:get_cache(s:context)
+		if !empty(s:completion)
 			return s:context.pos[1] - 1
 		endif
 
-		let result = marching#{g:marching_backend}#complete(s:context)
-		if !empty(result)
-			call s:add_cache(s:context, result)
+		let s:completion = marching#{g:marching_backend}#complete(s:context)
+		if !empty(s:completion)
+			call s:add_cache(s:context, s:completion)
 			return s:context.pos[1] - 1
 		endif
 
@@ -202,7 +203,8 @@ function! marching#complete(findstart, base)
 			return -3
 		endif
 	endif
-	let completion = s:get_cache(s:context)
+" 	let completion = s:get_cache(s:context)
+	let completion = s:completion
 	if empty(completion)
 		return []
 	endif

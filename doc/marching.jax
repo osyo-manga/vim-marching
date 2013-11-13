@@ -55,8 +55,14 @@ Example: >
 
 	" オムニ補完時に補完ワードを挿入したくない場合
 	imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
-
 <
+
+また、一部の環境ではインクルードディレクトリパスを設定しなければ標準のヘッダー
+ファイルを正しく認識しない場合があります。
+その場合は |g:marching_include_paths| で必要なインクルードディレクトリパスの設
+定を行って下さい。
+
+
 ==============================================================================
 キャッシング					*marching-caching*
 
@@ -158,6 +164,19 @@ g:marching_include_paths			*g:marching_include_paths*
 Default: >
 	let g:marching_include_paths = []
 <
+	また、Linux 環境では一部のインクルードディレクトリが正しく認識されませ
+	ん。
+	C++ の標準ヘッダーを使用する場合は次のようにインクルードディレクトリを
+	設定する必要があります。
+	参照：https://github.com/osyo-manga/vim-marching/issues/4
+Example: >
+	let g:marching_include_paths = filter(
+	\	split(glob('/usr/include/c++/*'), '\n') +
+	\	split(glob('/usr/include/*/c++/*'), '\n') +
+	\	split(glob('/usr/include/*/'), '\n'),
+	\	'isdirectory(v:val)')
+<
+
 
 g:marching_enable_neocomplete			*g:marching_enable_neocomplete*
 	|neocomplete| と併用して使用する場合は 1 を設定する必要があります。

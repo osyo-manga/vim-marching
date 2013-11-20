@@ -1,11 +1,11 @@
-*marching.txt* *marching*	Asynchronous code completion for C++
+*marching.txt* *marching*	Asynchronous code completion for C and C++
 
 
 
 ==============================================================================
 INTRODUCTION						*marching-introduction*
 
-*marching.vim* is a Vim plugin to complete C++ code using Clang, a
+*marching.vim* is a Vim plugin to complete C, C++ code using Clang, a
 C/C++/Objective-C front end for LLVM.
 
 - Requirements
@@ -47,6 +47,10 @@ Example: >
 	let g:neocomplete#force_omni_input_patterns.cpp =
 		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 <
+|marching.vim| may not detect the standard header files in some environments.  In
+the case, you should set a proper include directory path to
+|g:marching_include_paths|.
+
 
 ==============================================================================
 CACHING						*marching-caching*
@@ -145,6 +149,16 @@ g:marching_include_paths			*g:marching_include_paths*
 	in 'path' as include directories.
 Default value is: >
 	let g:marching_include_paths = []
+<
+	In Linux environment, some include directories are not detected
+	correctly.  If you want to use the standard header files for C, C++,
+	you should set include directory paths as following.
+Example: >
+	let g:marching_include_paths = filter(
+	\	split(glob('/usr/include/c++/*'), '\n') +
+	\	split(glob('/usr/include/*/c++/*'), '\n') +
+	\	split(glob('/usr/include/*/'), '\n'),
+	\	'isdirectory(v:val)')
 <
 
 g:marching_enable_neocomplete			*g:marching_enable_neocomplete*

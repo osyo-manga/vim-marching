@@ -17,8 +17,13 @@ function! marching#sync_clang_command#complete(context)
 \			tempfile,
 \			a:context.pos[0],
 \			a:context.pos[1],
-\			marching#clang_command#include_opt() . " " . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
+\				get(b:, "marching_clang_command_default_options", '-cc1 -fsyntax-only')
+\			  . " "
+\			  . marching#clang_command#include_opt()
+\			  . " "
+\			  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
 \		)
+		echom command
 		call marching#print_log("sync_clang_command command", command)
 
 		let has_vimproc = 0

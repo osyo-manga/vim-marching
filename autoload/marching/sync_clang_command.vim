@@ -23,7 +23,6 @@ function! marching#sync_clang_command#complete(context)
 \			  . " "
 \			  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
 \		)
-		echom command
 		call marching#print_log("sync_clang_command command", command)
 
 		let has_vimproc = 0

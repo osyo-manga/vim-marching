@@ -29,6 +29,7 @@ function! marching#sync_clang_command#complete(context)
 			let result = system(command)
 		endif
 
+		redraw
 		echo "marching completion finish"
 		return marching#clang_command#parse_complete_result(result)
 	finally

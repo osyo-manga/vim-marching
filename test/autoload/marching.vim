@@ -34,6 +34,9 @@ function! s:test_parse_keyword()
 	let owl_SID = owl#filename_to_SID("vim-marching/autoload/marching.vim")
 
 	OwlCheck s:get_keyword("homu; mami") is# ""
+	OwlCheck s:get_keyword("con std::") is# "std::"
+	OwlCheck s:get_keyword("ho, std::") is# "std::"
+	OwlCheck s:get_keyword("x.,") is# "x."
 	OwlCheck s:get_keyword("hoge.value") ==# "hoge."
 	OwlCheck s:get_keyword("hoge.") ==# "hoge."
 	OwlCheck s:get_keyword("std::has_xxx") ==# "std::"
@@ -64,9 +67,14 @@ function! s:test_parse_keyword()
 	OwlCheck s:get_keyword("func(a, b, c).va") ==# "func(a,b,c)."
 	OwlCheck s:get_keyword("x; func (). ") ==# "func()."
 	OwlCheck s:get_keyword("x;func (). ") ==# "func()."
+	OwlCheck s:get_keyword("x;func  ().func ( ). ") ==# "func().func()."
+
 	OwlCheck s:get_keyword("  x; func (). ") ==# "func()."
 	OwlCheck s:get_keyword("  x; hoge[1](). ") ==# "hoge[1]()."
 	OwlCheck s:get_keyword("  x; hoge[1, 2](). ") ==# "hoge[1,2]()."
+	OwlCheck s:get_keyword("  x; hoge  [1, 2](). ") ==# "hoge[1,2]()."
+	OwlCheck s:get_keyword("hoge  <>::") ==# "hoge<>::"
+	OwlCheck s:get_keyword("hoge  {}::") ==# "hoge{}::"
 endfunction
 
 

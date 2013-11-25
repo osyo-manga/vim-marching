@@ -70,11 +70,14 @@ function! s:parse_keyword(str)
 	let result = ""
 	let indent = { '(' : 0, '[' : 0, '<' : 0, '{' : 0 }
 
+	" remove () space
+	let target = substitute(target, '\w\zs\s\+\ze[([{<]', '', "g")
+
 	for char in reverse(split(target, '\zs'))
 		if char ==# ';'
 			return result
 		endif
-		if char =~ '[,}]'
+		if char =~ '[,}[:blank:]]'
 \		&& !indent['(']
 \		&& !indent['[']
 \		&& !indent['<']
@@ -102,6 +105,8 @@ function! s:get_keyword(line)
 	return substitute(result, '\s', '', "g")
 endfunction
 
+" echo s:get_keyword("10, std::")
+" echo s:get_keyword("con std::")
 
 function! s:parse_complete_word(word)
 	let complete_word = matchstr(a:word, '^.*\%(\s\|\.\|->\|::\)\ze.*$')

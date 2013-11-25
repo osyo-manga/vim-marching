@@ -114,7 +114,7 @@ endfunction
 
 
 function! s:make_context(pos, bufnr)
-	let line = get(getbufline(a:bufnr, a:pos[0]), 0)[ : a:pos[1]]
+	let line = get(getbufline(a:bufnr, a:pos[0]), 0)[ : a:pos[1]-2]
 	let [complete_word, input] = s:parse_complete_word(line)
 
 	let keyword_line = s:remove_comment(join(getbufline(bufnr("%"), line(".") - 5 < 1 ? 1 : line(".") - 5, line(".") - 1), "\n") . "\n"  . line)

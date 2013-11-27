@@ -34,7 +34,7 @@ function! s:parse_complete_result_line(line)
 		return { "word" : matchstr(a:line, '^COMPLETION: \zs.*\ze$') }
 	endif
 	let result = eval(substitute(a:line, pattern, '{ "word" : "\1", "abbr" : "\2", "dup" : 1 }', ""))
-	let result.abbr = substitute(result.abbr, '\[#\(.*\)#\]\(.*\)', '\2 -> \1', 'g')
+	let result.abbr = substitute(result.abbr, '\[#\(.\{-}\)#\]\(.*\)', '\2 -> \1', 'g')
 	let result.abbr = substitute(result.abbr, '\(<#\|#>\)', '', 'g')
 	return result
 endfunction

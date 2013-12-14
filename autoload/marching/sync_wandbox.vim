@@ -24,6 +24,7 @@ function! s:post_wandbox(query)
 \		a:query,
 \		{ "Content-type" : "application/json" },
 \	)
+	call marching#print_log("sync_wandbox post result", result)
 	let content = s:JSON.decode(result.content)
 	if !has_key(content, "program_output")
 		call marching#print_log("sync_wandbox post failed", content)

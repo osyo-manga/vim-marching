@@ -3,6 +3,33 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+let s:extensions = {
+\	"c"   : "c",
+\	"cpp" : "cpp",
+\}
+
+function! marching#extension(filetype)
+	return get(extend(s:extensions, get(g:, "marching_extension", {})), a:filetype, a:filetype)
+endfunction
+
+
+function! s:make_tempfile(filename, bufnr)
+	let filename = substitute(a:filename, '\', '/', "g")
+	if writefile(getbufline(a:bufnr, 1, "$"), filename) == -1
+		return ""
+	else
+		return filename
+	endif
+endfunction
+
+
+function! marching#make_tempfile_from_buffer(bufnr)
+	let ext = marching#extension(getbufvar(a:bufnr, "&filetype"))
+	let tempfile = s:make_tempfile(fnamemodify(bufname(a:bufnr), ":p:h") . "/marching_complete_temp." . ext, a:bufnr)
+	return tempfile
+endfunction
+
+
 function! marching#get_included_files(bufnr)
 	return filter(map(getline(a:bufnr, 1, "$"), 'matchstr(v:val, ''^\s*#\s*include\s*[<"]\zs.*\ze[">]'')'), '!empty(v:val)')
 endfunction

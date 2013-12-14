@@ -86,9 +86,7 @@ function! s:complete_process.start(context)
 	echo "marching completion start"
 	call marching#print_log("clang_command start")
 	call self.clear()
-" 	let ext = filereadable(bufname(a:context.bufnr)) ? fnamemodify(bufname(a:context.bufnr), ":e") : &filetype
-	let ext = &filetype
-	let tempfile = s:make_tempfile(fnamemodify(bufname(a:context.bufnr), ":p:h") . "/marching_complete_temp." . ext, a:context.bufnr)
+	let tempfile = marching#make_tempfile_from_buffer(a:context.bufnr)
 	if !filereadable(tempfile)
 		return
 	endif

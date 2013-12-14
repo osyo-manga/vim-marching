@@ -3,11 +3,10 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-
 function! marching#sync_clang_command#complete(context)
 	echo "marching completion start"
 
-	let tempfile = marching#clang_command#make_tempfile(fnamemodify(a:context.bufnr, ":p:h") . "/sync_marching_complete_temp.cpp", a:context.bufnr)
+	let tempfile = marching#make_tempfile_from_buffer(a:context.bufnr)
 	if !filereadable(tempfile)
 		return
 	endif

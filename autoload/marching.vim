@@ -52,9 +52,9 @@ function! marching#print_log(point, ...)
 	if !g:marching_debug
 		return
 	endif
-	let s:log_data .= strftime("%c", localtime()) . ' | ' . a:point . "\n"
+	let s:log_data .= "---- " . strftime("%c", localtime()) . ' ---- | ' . a:point . "\n"
 	if a:0
-		let s:log_data .= a:1 . "\n"
+		let s:log_data .= (type(a:1) == type("") ? a:1 : string(a:1)) . "\n"
 	endif
 endfunction
 

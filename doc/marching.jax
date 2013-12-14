@@ -207,6 +207,8 @@ g:marching_backend				*g:marching_backend*
 	"sync_clang_command" : 同期処理でコード補完を行います。
 			     : この設定の場合は |reunions| と |vimproc| には依
 			       存しなくなります
+	"sync_wandbox"	     : wandbox を使用して補完を行います。
+			       詳しくは |marching-wandbox| を参照下さい。
 Default: >
 	let g:marching_backend = "clang_command"
 <
@@ -224,7 +226,34 @@ Default: >
 <
 
 ==============================================================================
-使用例						*marching-example*
+wandbox						*marching-wandbox*
+
+wandbox とは Web 上でコードを実行することができる Web サービスです。
+
+- wandbox http://melpon.org/wandbox/
+
+
+このサービスを利用してローカルに Clang がなくても Vim からコード補完を行うこと
+できます。
+ただし、カレントバッファ以外のコード（ローカルのヘッダーファイル等を include し
+ている場合など）は正しく補完されないので注意して下さい。
+
+
+Example: >
+	" wandbox を使用するための設定
+	let g:marching_clang_command = ""
+	let g:marching_backend="sync_wandbox"
+	
+	" wandbox へ渡されるオプション
+	let g:marching_clang_command_option = "-std=gnu++1y"
+<
+
+この時に使用される環境は以下のようになります。
+
+- clang HEAD 3.5 (trunk 197268)
+- Boost 1.55.0
+- Sprout
+
 
 
 

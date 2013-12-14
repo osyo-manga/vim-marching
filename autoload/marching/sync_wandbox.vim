@@ -25,6 +25,10 @@ function! s:post_wandbox(query)
 \		{ "Content-type" : "application/json" },
 \	)
 	let content = s:JSON.decode(result.content)
+	if !has_key(content, "program_output")
+		call marching#print_log("sync_wandbox post failed", content)
+		return ""
+	endif
 	return content.program_output
 endfunction
 
@@ -63,35 +67,6 @@ function! marching#sync_wandbox#complete(context)
 	redraw
 	echo "marching completion finish"
 	return marching#clang_command#parse_complete_result(result)
-
-	try
-		let command = marching#clang_command#clang_complete_command(
-\			get(b:, "marching_clang_command", g:marching_clang_command),
-\			tempfile,
-\			a:context.pos[0],
-\			a:context.pos[1],
-\				get(b:, "marching_clang_command_default_options", '-cc1 -fsyntax-only')
-\			  . " "
-\			  . marching#clang_command#include_opt()
-\			  . " "
-\			  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
-\		)
-		call marching#print_log("sync_clang_command command", command)
-
-		let has_vimproc = 0
-		silent! let has_vimproc = vimproc#version()
-		if has_vimproc
-			let result = vimproc#system(command)
-		else
-			let result = system(command)
-		endif
-
-		redraw
-		echo "marching completion finish"
-		return marching#clang_command#parse_complete_result(result)
-	finally
-		call delete(tempfile)
-	endtry
 endfunction
 
 

@@ -3,7 +3,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-let s:HTTP = vital#of("vim-marching").import("Web.HTTP")
+let s:V = vital#of("vim-marching")
+let s:HTTP = s:V.import("Web.HTTP")
+let s:JSON = s:V.import("Web.JSON")
 
 
 function! s:bash(code)
@@ -18,12 +20,11 @@ endfunction
 
 
 function! s:post_wandbox(query)
-	let result = webapi#http#post("http://melpon.org/wandbox/api/compile.json",
+	let result = s:HTTP.post("http://melpon.org/wandbox/api/compile.json",
 \		a:query,
 \		{ "Content-type" : "application/json" },
 \	)
-	call marching#print_log("sync_wandbox post result", result)
-	let content = webapi#json#decode(result.content)
+	let content = s:JSON.decode(result.content)
 	return content.program_output
 endfunction
 

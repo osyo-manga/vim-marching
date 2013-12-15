@@ -226,8 +226,8 @@ function! marching#complete(findstart, base)
 		endif
 
 		let s:completion = marching#{g:marching_backend}#complete(s:context)
+		call s:add_cache(s:context, s:completion)
 		if !empty(s:completion)
-			call s:add_cache(s:context, s:completion)
 			return s:context.pos[1] - 1
 		endif
 

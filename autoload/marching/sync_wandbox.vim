@@ -7,6 +7,7 @@ let s:V = vital#of("vim-marching")
 let s:HTTP = s:V.import("Web.HTTP")
 let s:JSON = s:V.import("Web.JSON")
 
+let g:marching#sync_wandbox#timeout = get(g:, "marching#sync_wandbox#timeout", "")
 
 function! s:bash(code)
 	let query = '{
@@ -20,11 +21,19 @@ endfunction
 
 
 function! s:post_wandbox(query)
-	let result = s:HTTP.post("http://melpon.org/wandbox/api/compile.json",
-\		a:query,
-\		{ "Content-type" : "application/json" },
-\	)
+	let result = s:HTTP.request({
+\		"url" : "http://melpon.org/wandbox/api/compile.json",
+\		"data" : a:query,
+\		"headers" : { "Content-type" : "application/json" },
+\		"method" : "POST",
+\		"client" : ["curl", "wget"],
+\		"timeout" : g:marching#sync_wandbox#timeout
+\	})
+
 	call marching#print_log("sync_wandbox post result", result)
+	if !result.success
+		return ""
+	endif
 	let content = s:JSON.decode(result.content)
 	if !has_key(content, "program_output")
 		call marching#print_log("sync_wandbox post failed", content)
@@ -63,7 +72,7 @@ function! marching#sync_wandbox#complete(context)
 		let filename = printf("marching_vim_prog_%d.cpp", localtime())
 	endif
 
-	let result = s:wandbox_completion(source, line, col, "", filename)
+	let result = s:wandbox_completion(source, line, col, option, filename)
 
 	redraw
 	echo "marching completion finish"

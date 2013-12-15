@@ -232,6 +232,14 @@ Default: >
 	let g:marching_enable_dup = 1
 <
 
+g:marching#sync_wandbox#timeout			*g:marching#sync_wandbox#timeout*
+	|marching-wandbox| を使用した場合のタイムアウトを文字列で設定します。
+	タイムアウトを行いたくない場合は空の文字列を設定して下さい。
+Default: >
+	let g:marching#sync_wandbox#timeout = ""
+<
+
+
 
 ==============================================================================
 wandbox						*marching-wandbox*

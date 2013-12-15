@@ -225,6 +225,14 @@ Default: >
 	let g:marching_enable_refresh_always = 0
 <
 
+g:marching_enable_dup				*g:marching_enable_dup*
+	0 が設定されている場合は複数の候補があった時に1つのみ表示します。
+	1 が設定されている場合はその分だけ表示します。
+Default: >
+	let g:marching_enable_dup = 1
+<
+
+
 ==============================================================================
 wandbox						*marching-wandbox*
 

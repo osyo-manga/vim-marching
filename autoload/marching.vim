@@ -132,8 +132,6 @@ function! s:get_keyword(line)
 	return substitute(result, '\s', '', "g")
 endfunction
 
-" echo s:get_keyword("10, std::")
-" echo s:get_keyword("con std::")
 
 function! s:parse_complete_word(word)
 	let complete_word = matchstr(a:word, '^.*\%(\s\|\.\|->\|::\)\ze.*$')
@@ -178,6 +176,10 @@ function! s:get_cache(context)
 	return get(s:get_current_cache(), a:context.keyword, [])
 endfunction
 
+function! s:has_cache(context)
+	return has_key(s:get_current_cache(), a:context.keyword)
+endfunction
+
 
 function! marching#clear_cache_all()
 	let b:marching_cache = {}
@@ -218,8 +220,8 @@ function! marching#complete(findstart, base)
 	if a:findstart
 		let s:completion = []
 		let s:context = s:current_context()
-		let s:completion = s:get_cache(s:context)
-		if !empty(s:completion)
+		if s:has_cache(s:context)
+			let s:completion = s:get_cache(s:context)
 			return s:context.pos[1] - 1
 		endif
 

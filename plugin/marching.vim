@@ -17,6 +17,7 @@ let g:marching_enable_neocomplete    = get(g:, "marching_enable_neocomplete", 0)
 let g:marching_debug                 = get(g:, "marching_debug", 0)
 let g:marching_backend               = get(g:, "marching_backend", "clang_command")
 let g:marching_enable_refresh_always = get(g:, "marching_enable_refresh_always", 0)
+let g:marching_enable_dup = get(g:, "marching_enable_dup", 1)
 " let g:marching_clang_command_updatetime =
 
 

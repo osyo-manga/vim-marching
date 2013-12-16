@@ -120,6 +120,7 @@ function! s:complete_process.start(context)
 		echo "marching completion finish"
 		let self.parent.result = result
 		call marching#print_log("clang_command finish")
+		call marching#clear_cache(self.marching_context)
 		call feedkeys("\<Plug>(marching_start_omni_complete)")
 	endfunction
 
@@ -146,15 +147,17 @@ function! marching#clang_command#cancel()
 	call s:complete_process.clear()
 endfunction
 
+
 function! marching#clang_command#complete(context)
 	if has_key(s:complete_process, "result")
 \	&& has_key(s:complete_process, "context")
 \	&& s:complete_process.context.keyword ==# a:context.keyword
 		return s:complete_process.result
 	endif
+
 	call feedkeys("\<C-g>\<ESC>", 'n')
 	call s:complete_process.start(a:context)
-	return []
+	return 0
 endfunction
 
 

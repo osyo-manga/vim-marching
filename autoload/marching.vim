@@ -187,6 +187,9 @@ endfunction
 
 
 function! marching#clear_cache(context)
+	if !s:has_cache(a:context)
+		return
+	endif
 	return remove(s:get_current_cache(), a:context.keyword)
 endfunction
 
@@ -225,10 +228,13 @@ function! marching#complete(findstart, base)
 			return s:context.pos[1] - 1
 		endif
 
-		let s:completion = marching#{g:marching_backend}#complete(s:context)
-		call s:add_cache(s:context, s:completion)
-		if !empty(s:completion)
-			return s:context.pos[1] - 1
+		let completion = marching#{g:marching_backend}#complete(s:context)
+		if type(completion) == type([])
+			let s:completion = completion
+			call s:add_cache(s:context, s:completion)
+			if !empty(s:completion)
+				return s:context.pos[1] - 1
+			endif
 		endif
 
 		if g:marching_enable_neocomplete

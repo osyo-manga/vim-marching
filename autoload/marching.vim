@@ -36,7 +36,7 @@ endfunction
 
 
 function! marching#get_include_dirs()
-	return filter(split(&path, ',') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./''')
+	return filter(map(split(&path, '\\\@<![, ]'), 'substitute(v:val, ''\\\([, ]\)'', ''\1'', ''g'')') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./''')
 endfunction
 
 

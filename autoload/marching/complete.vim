@@ -56,7 +56,7 @@ endfunction
 
 
 function! s:include_opt()
-	let include_opt = join(map(filter(marching#get_include_dirs(), 'v:val !=# "."'), 'string(v:val)'), ' -I')
+	let include_opt = join(map(filter(marching#get_include_dirs(), 'v:val !=# "."'), 'shellescape(v:val)'), ' -I')
 	if empty(include_opt)
 		return ""
 	endif

@@ -226,6 +226,11 @@ function! marching#complete(findstart, base)
 		if synIDattr(synIDtrans(synID(line("."), col("."), 1)), 'name') ==# "Comment"
 			return failed
 		endif
+		" インクルード行では補完しない
+		if getline(".") =~ &include
+			return failed
+		endif
+
 		let s:completion = []
 		let s:context = s:current_context()
 		if s:has_cache(s:context)

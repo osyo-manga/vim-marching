@@ -6,6 +6,8 @@ function! s:test_parse_complete_result_line()
 	OwlCheck s:parse_complete_result_line("COMPLETION: func : [#void#]func()").abbr ==# "func() -> void"
 	OwlCheck s:parse_complete_result_line("COMPLETION: func : [#void#]func(<#int#>)").abbr ==# "func(int) -> void"
 	OwlCheck s:parse_complete_result_line("COMPLETION: __FUNCTION__").word ==# "__FUNCTION__"
+	OwlCheck s:parse_complete_result_line("COMPLETION: at : [#const_reference#]at(<#size_type __n#>)[# const#]").word ==# "at"
+	OwlCheck s:parse_complete_result_line("COMPLETION: at : [#const_reference#]at(<#size_type __n#>)[# const#]").abbr ==# "at(size_type __n)[# const#] -> const_reference"
 endfunction
 
 

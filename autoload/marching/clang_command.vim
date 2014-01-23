@@ -35,10 +35,12 @@ function! s:parse_complete_result_line(line)
 	endif
 	let result = eval(substitute(a:line, pattern, '{ ''word'' : ''\1'', ''abbr'' : ''\2'', ''dup'' : g:marching_enable_dup }', ""))
 	let result.abbr = substitute(result.abbr, '\[#\(.\{-}\)#\]\(.*\)', '\2 -> \1', 'g')
-	let result.abbr = substitute(result.abbr, '\(<#\|#>\)', '', 'g')
+	let result.abbr = substitute(result.abbr, '\[#\(.\{-}\)#\]', '\1', 'g')
+	let result.abbr = substitute(result.abbr, '{#\(.\{-}\)#}', '\1', 'g')
+	let result.abbr = substitute(result.abbr, '<#\(.\{-}\)#>', '\1', 'g')
+" 	let result.abbr = substitute(result.abbr, '\(<#\|#>\)', '', 'g')
 	return result
 endfunction
-
 
 function! s:parse_complete_result(output)
 	return map(split(a:output, "\n"), 's:parse_complete_result_line(v:val)')

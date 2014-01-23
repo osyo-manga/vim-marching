@@ -271,7 +271,7 @@ Example: >
 
 この時に使用される環境は以下のようになります。
 
-- clang HEAD 3.5 (trunk 197268)
+- clang HEAD 3.5 (trunk 199132)
 - Boost 1.55.0
 - Sprout
 

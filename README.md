@@ -65,8 +65,15 @@ imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 ##Future
 
 * C++ 以外の対応
- * C言語
  * Objective-C
 * スニペットの対応
 * neocomplete.vim との連携
+
+
+##License
+
+[NYSL](http://www.kmonos.net/nysl/)
+
+[NYSL English](http://www.kmonos.net/nysl/index.en.html)
+
 

@@ -221,6 +221,7 @@ endfunction
 function! marching#complete(findstart, base)
 	let s:complete_started = 1
 	if a:findstart
+		let s:completion = []
 		let failed = g:marching_enable_neocomplete ? -1 : -3
 		" コメント時は補完しない
 		if synIDattr(synIDtrans(synID(line("."), col("."), 1)), 'name') ==# "Comment"
@@ -231,7 +232,6 @@ function! marching#complete(findstart, base)
 			return failed
 		endif
 
-		let s:completion = []
 		let s:context = s:current_context()
 		if s:has_cache(s:context)
 			let s:completion = s:get_cache(s:context)

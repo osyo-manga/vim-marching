@@ -37,7 +37,7 @@ function! s:clang_complete_command(cmd, file, line, col, args)
 	if !filereadable(a:file)
 		return ""
 	endif
-	return printf("%s %s -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
+	return printf("%s %s -Xclang -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
 endfunction
 
 function! marching#clang_command#clang_complete_command(...)

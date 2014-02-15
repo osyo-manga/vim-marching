@@ -5,7 +5,7 @@ endif
 
 setlocal omnifunc=marching#complete
 
-let b:marching_clang_command_default_options = "-cc1 -fsyntax-only"
+let b:marching_clang_command_default_options = " -fsyntax-only"
 
 augroup plugin-marching-filetype
 	autocmd! * <buffer>

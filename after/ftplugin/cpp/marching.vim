@@ -6,7 +6,8 @@ endif
 
 setlocal omnifunc=marching#complete
 
-let b:marching_clang_command_default_options = "-cc1 -std=c++11 -fsyntax-only"
+" NOTE:http://yuttie.hatenablog.jp/entry/2014/02/11/151610
+let b:marching_clang_command_default_options = "-fsyntax-only -std=c++11"
 
 augroup plugin-marching-filetype
 	autocmd! * <buffer>

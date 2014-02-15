@@ -35,8 +35,9 @@ function! marching#get_included_files(bufnr)
 endfunction
 
 
-function! marching#get_include_dirs()
-	return filter(map(split(&path, '\\\@<![, ]'), 'substitute(v:val, ''\\\([, ]\)'', ''\1'', ''g'')') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./''')
+function! marching#get_include_dirs(...)
+	let bufnr = get(a:, 1, bufnr("%"))
+	return filter(map(split(getbufvar(bufnr, "&path"), '\\\@<![, ]'), 'substitute(v:val, ''\\\([, ]\)'', ''\1'', ''g'')') + g:marching_include_paths, 'isdirectory(v:val) && v:val !~ ''\./''')
 endfunction
 
 

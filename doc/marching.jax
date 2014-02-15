@@ -35,6 +35,11 @@ Example: >
 	let g:marching_clang_command = "C:/clang.exe"
 
 	" オプションを追加する場合
+	" filetype をキーに持つ辞書に設定する
+	let g:marching#clang_command#options = {
+	\	"cpp" : "-std=gnu++1y"
+	\}
+
 	let g:marching_clang_command_option="-std=c++1y"
 
 	" インクルードディレクトリのパスを設定
@@ -140,11 +145,15 @@ Default: >
 	let g:marching_clang_command = "clang"
 <
 
-g:marching_clang_command_option			*g:marching_clang_command_option*
+g:marching#clang_command#options		*g:marching#clang_command#options*
 	|g:marching_clang_command| へ渡すコマンドオプションです。
+	|filetype| をキーとした辞書を設定します。
 Default: >
-	let g:marching_clang_command_option = ""
+	let g:marching#clang_command#options = {
+	\	"cpp" : "-std=gnu++1y"
+	\}
 <
+	以前の名前 *g:marching_clang_command_option*
 
 g:marching_wait_time				*g:marching_wait_time*
 	最初にコマンドを実行した際の待ち時間秒数を Float 値でを設定します。
@@ -192,8 +201,12 @@ b:marching_clang_command			*b:marching_clang_command*
 	|g:marching_clang_command| よりも優先して使用されます。
 
 b:marching_clang_command_option			*b:marching_clang_command_option*
-	|g:marching_clang_command_option| と同等の設定です。
-	|g:marching_clang_command_option| よりも優先して使用されます。
+	|g:marching#clang_command#options| と同等の設定ですが、辞書ではなくて
+	文字列を設定します。
+	|g:marching#clang_command#options| よりも優先して使用されます。
+Default: >
+	let b:marching_clang_command_option = "-std=gnu++1y"
+<
 
 g:marching_debug				*g:marching_debug*
 	1 が設定されているとデバッグ用のログを記録します。

@@ -3,16 +3,33 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-function! s:include_opt()
-	let include_opt = join(map(filter(marching#get_include_dirs(), 'v:val !=# "."'), 'shellescape(v:val)'), ' -I')
+let g:marching#clang_command#options = get(g:, "marching#clang_command#options", {})
+
+
+function! s:include_opt(...)
+	let bufnr = get(a:, 1, bufnr("%"))
+	let include_opt = join(map(filter(marching#get_include_dirs(bufnr), 'v:val !=# "."'), 'shellescape(v:val)'), ' -I')
 	if empty(include_opt)
 		return ""
 	endif
 	return "-I" . include_opt
 endfunction
 
-function! marching#clang_command#include_opt()
-	return s:include_opt()
+function! marching#clang_command#include_opt(...)
+	let bufnr = get(a:, 1, bufnr("%"))
+	return s:include_opt(bufnr)
+endfunction
+
+
+function! marching#clang_command#option(...)
+	let bufnr = get(a:, 1, bufnr("%"))
+	return getbufvar(bufnr, "marching_clang_command_default_options")
+\		 . " "
+\		 . s:include_opt(bufnr)
+\		 . " "
+\		 . get(g:marching#clang_command#options, getbufvar(bufnr, "&filetype"), "")
+\		 . " "
+\		 . get(getbufvar("%", ""), "marching_clang_command_option", g:marching_clang_command_option)
 endfunction
 
 
@@ -98,11 +115,7 @@ function! s:complete_process.start(context)
 \		tempfile,
 \		a:context.pos[0],
 \		a:context.pos[1],
-\			get(b:, "marching_clang_command_default_options", '-cc1 -fsyntax-only')
-\		  . " "
-\		  . s:include_opt()
-\		  . " "
-\		  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
+\		marching#clang_command#option(),
 \	)
 	call marching#print_log("clang_command command", command)
 	let self.context = a:context

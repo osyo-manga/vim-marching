@@ -3,6 +3,13 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+call vital#of("marching").unload()
+let s:V = vital#of("marching")
+function! marching#vital()
+	return s:V
+endfunction
+
+
 let s:extensions = {
 \	"c"   : "c",
 \	"cpp" : "cpp",
@@ -268,12 +275,10 @@ function! marching#complete(findstart, base)
 endfunction
 
 
-augroup plugin-marching
+augroup plugin-marching-clang_command
 	autocmd!
 	autocmd CompleteDone * let s:complete_started = 0
 augroup END
-
-
 
 
 let &cpo = s:save_cpo

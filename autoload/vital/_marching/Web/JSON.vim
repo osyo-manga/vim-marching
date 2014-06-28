@@ -1,13 +1,14 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:V = vital#{expand('<sfile>:h:h:t:r')}#new()
+function! s:_vital_loaded(V)
+  let s:V = a:V
+  let s:string = s:V.import('Data.String')
+endfunction
 
 function! s:_vital_depends()
   return ['Data.String']
 endfunction
-
-let s:string = s:V.import('Data.String')
 
 function! s:decode(json)
   let json = iconv(a:json, "utf-8", &encoding)
@@ -23,7 +24,7 @@ function! s:encode(val)
   if type(a:val) == 0
     return a:val
   elseif type(a:val) == 1
-    let json = '"' . escape(a:val, '"') . '"'
+    let json = '"' . escape(a:val, '\"') . '"'
     let json = substitute(json, "\r", '\\r', 'g')
     let json = substitute(json, "\n", '\\n', 'g')
     let json = substitute(json, "\t", '\\t', 'g')

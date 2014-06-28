@@ -13,7 +13,6 @@
 
     Plugin
       vimproc.vim  - https://github.com/Shougo/vimproc.vim
-      reunions.vim - https://github.com/osyo-manga/vim-reunions
 
 
 ==============================================================================
@@ -221,7 +220,7 @@ g:marching_backend				*g:marching_backend*
 	
 	"clang_command"      : 非同期処理でコード補完を行います。
 	"sync_clang_command" : 同期処理でコード補完を行います。
-			     : この設定の場合は |reunions| と |vimproc| には依
+			     : この設定の場合は |vimproc| には依
 			       存しなくなります
 	"sync_wandbox"	     : wandbox を使用して補完を行います。
 			       詳しくは |marching-wandbox| を参照下さい。

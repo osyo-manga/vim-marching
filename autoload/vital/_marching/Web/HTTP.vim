@@ -4,13 +4,13 @@ set cpo&vim
 
 function! s:_vital_loaded(V)
   let s:V = a:V
-
   let s:Prelude = s:V.import('Prelude')
+  let s:Process = s:V.import('Process')
   let s:String = s:V.import('Data.String')
 endfunction
 
 function! s:_vital_depends()
-  return ['Data.String', 'Prelude']
+  return ['Prelude', 'Data.String', 'Process']
 endfunction
 
 function! s:__urlencode_char(c)
@@ -254,6 +254,7 @@ endfunction
 let s:clients = {}
 
 let s:clients.python = {}
+
 function! s:clients.python.available(settings)
   if !has('python')
     return 0
@@ -268,6 +269,7 @@ function! s:clients.python.available(settings)
   endif
   return 1
 endfunction
+
 function! s:clients.python.request(settings)
   " TODO: maxRedirect, retry, outputFile
   let header = ''
@@ -343,12 +345,15 @@ endpython
 endfunction
 
 let s:clients.curl = {}
+
 function! s:clients.curl.available(settings)
   return executable(self._command(a:settings))
 endfunction
+
 function! s:clients.curl._command(settings)
   return get(get(a:settings, 'command', {}), 'curl', 'curl')
 endfunction
+
 function! s:clients.curl.request(settings)
   let quote = s:_quote()
   let command = self._command(a:settings)
@@ -380,7 +385,7 @@ function! s:clients.curl.request(settings)
     let command .= ' --data-binary @' . quote . a:settings._file.post . quote
   endif
 
-  call s:Prelude.system(command)
+  call s:Process.system(command)
 
   let headerstr = s:_readfile(a:settings._file.header)
   let header_chunks = split(headerstr, "\r\n\r\n")
@@ -394,12 +399,15 @@ function! s:clients.curl.request(settings)
 endfunction
 
 let s:clients.wget = {}
+
 function! s:clients.wget.available(settings)
   return executable(self._command(a:settings))
 endfunction
+
 function! s:clients.wget._command(settings)
   return get(get(a:settings, 'command', {}), 'wget', 'wget')
 endfunction
+
 function! s:clients.wget.request(settings)
   let quote = s:_quote()
   let command = self._command(a:settings)
@@ -439,7 +447,7 @@ function! s:clients.wget.request(settings)
     let command .= ' --post-file=' . quote . a:settings._file.post . quote
   endif
 
-  call s:Prelude.system(command)
+  call s:Process.system(command)
 
   if filereadable(a:settings._file.header)
     let header_lines = readfile(a:settings._file.header, 'b')

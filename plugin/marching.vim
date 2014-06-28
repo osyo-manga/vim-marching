@@ -28,7 +28,7 @@ inoremap <silent> <Plug>(marching_start_omni_complete)
 function! s:clear_cache()
 	call marching#clear_cache(marching#current_context())
 	call marching#clang_command#cancel()
-	return ""
+	return pumvisible() ? "\<C-x>" : ""
 endfunction
 
 

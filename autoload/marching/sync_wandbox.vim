@@ -3,9 +3,8 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-let s:V = vital#of("vim-marching")
-let s:HTTP = s:V.import("Web.HTTP")
-let s:JSON = s:V.import("Web.JSON")
+let s:HTTP = marching#vital().import("Web.HTTP")
+let s:JSON = marching#vital().import("Web.JSON")
 
 let g:marching#sync_wandbox#timeout = get(g:, "marching#sync_wandbox#timeout", "")
 

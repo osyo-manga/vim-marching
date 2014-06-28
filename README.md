@@ -10,7 +10,6 @@ Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/ma
  * __[Clang](http://clang.llvm.org/)__
 * __Vim plugin__
  * __[vimproc.vim](https://github.com/Shougo/vimproc.vim)__
- * __[reunions.vim](https://github.com/osyo-manga/vim-reunions)__
 
 
 ##Screencapture

@@ -5,6 +5,8 @@ set cpo&vim
 
 let g:marching#clang_command#options = get(g:, "marching#clang_command#options", {})
 
+let s:Reunions = marching#vital().import("Reunions")
+
 
 function! s:include_opt(...)
 	let bufnr = get(a:, 1, bufnr("%"))
@@ -120,11 +122,11 @@ function! s:complete_process.start(context)
 	call marching#print_log("clang_command command", command)
 	let self.context = a:context
 
-	let self.process = reunions#process(command)
+	let self.process = s:Reunions.process(command)
 
 	let self.process.marching_context = a:context
 	let self.process.parent = self
-	function! self.process.then(output)
+	function! self.process.then(output, ...)
 		let result = s:parse_complete_result(a:output)
 		call marching#print_log("clang_command result", string(result))
 		if empty(result)
@@ -174,6 +176,12 @@ function! marching#clang_command#complete(context)
 	call s:complete_process.start(a:context)
 	return 0
 endfunction
+
+
+augroup plugin-marching
+	autocmd!
+	autocmd CursorHold,CursorHoldI * call s:Reunions.update_in_cursorhold(1)
+augroup END
 
 
 let &cpo = s:save_cpo

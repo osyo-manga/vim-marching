@@ -26,8 +26,11 @@ Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/ma
 " clang コマンドの設定
 let g:marching_clang_command = "C:/clang.exe"
 
-" オプションを追加する場合
-let g:marching_clang_command_option="-std=c++1y"
+" オプションを追加する
+" filetype=cpp に対して設定する場合
+let g:marching#clang_command#options = {
+\	"cpp" : "-std=gnu++1y"
+\}
 
 " インクルードディレクトリのパスを設定
 let g:marching_include_paths = [
@@ -47,6 +50,7 @@ let g:neocomplete#force_omni_input_patterns.cpp =
 
 " 処理のタイミングを制御する
 " 短いほうがより早く補完ウィンドウが表示される
+" ただし、marching.vim 以外の処理にも影響するので注意する
 set updatetime=200
 
 " オムニ補完時に補完ワードを挿入したくない場合

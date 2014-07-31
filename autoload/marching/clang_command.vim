@@ -52,7 +52,7 @@ function! s:parse_complete_result_line(line)
 	if a:line !~ pattern
 		return { "word" : matchstr(a:line, '^COMPLETION: \zs.*\ze$') }
 	endif
-	let result = eval(substitute(a:line, pattern, '{ ''word'' : ''\1'', ''abbr'' : ''\2'', ''dup'' : g:marching_enable_dup }', ""))
+	let result = eval(substitute(a:line, pattern, '{ ''word'' : "\1", ''abbr'' : "\2", ''dup'' : g:marching_enable_dup }', ""))
 	let result.abbr = substitute(result.abbr, '\[#\(.\{-}\)#\]\(.*\)', '\2 -> \1', 'g')
 	let result.abbr = substitute(result.abbr, '\[#\(.\{-}\)#\]', '\1', 'g')
 	let result.abbr = substitute(result.abbr, '{#\(.\{-}\)#}', '\1', 'g')
@@ -175,6 +175,21 @@ function! marching#clang_command#complete(context)
 	call feedkeys("\<C-g>\<ESC>", 'n')
 	call s:complete_process.start(a:context)
 	return 0
+endfunction
+
+
+function! marching#clang_command#check()
+	let old_time = g:marching_wait_time
+	let context = marching#current_context()
+	call marching#clear_cache(context)
+	try
+		let g:marching_wait_time = 999.0
+		call marching#clang_command#complete(marching#current_context())
+	finally
+		let g:marching_wait_time = old_time
+	endtry
+	call marching#clear_cache(context)
+	return s:complete_process.result
 endfunction
 
 

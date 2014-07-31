@@ -182,11 +182,14 @@ function! marching#clang_command#check()
 	call marching#clear_cache_all()
 	let old_time = g:marching_wait_time
 	let context = marching#current_context()
+	let old_debug = g:marching_debug
+	let g:marching_debug = 1
 	try
 		let g:marching_wait_time = 999.0
 		call marching#clang_command#complete(marching#current_context())
 	finally
 		let g:marching_wait_time = old_time
+		let g:marching_debug = old_debug
 	endtry
 	call marching#clear_cache(context)
 	return s:complete_process.result

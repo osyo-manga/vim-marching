@@ -179,10 +179,9 @@ endfunction
 
 
 function! marching#clang_command#check()
-	call marching#clear_log()
+	call marching#clear_cache_all()
 	let old_time = g:marching_wait_time
 	let context = marching#current_context()
-	call marching#clear_cache(context)
 	try
 		let g:marching_wait_time = 999.0
 		call marching#clang_command#complete(marching#current_context())

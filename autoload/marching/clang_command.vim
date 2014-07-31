@@ -179,6 +179,7 @@ endfunction
 
 
 function! marching#clang_command#check()
+	call marching#clear_log()
 	let old_time = g:marching_wait_time
 	let context = marching#current_context()
 	call marching#clear_cache(context)

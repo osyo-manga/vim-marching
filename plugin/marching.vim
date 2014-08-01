@@ -49,6 +49,8 @@ command! -bar MarchingDebugClearLog call marching#clear_log()
 command! -bar MarchingEnableDebug  let g:marching_debug = 1
 command! -bar MarchingDisableDebug let g:marching_debug = 0
 
+command! -bar MarchingDebugCheck call marching#clang_command#check() | MarchingDebugLog
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

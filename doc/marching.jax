@@ -111,8 +111,14 @@ Example: >
 
 :MarchingDebugLog				*:MarchingDebugLog*
 	デバッグログを出力する。
-	ここで出力されるログは |g:marching_debug| に 1 が設定されている場合に
-	記録されます。
+	ここで出力されるログは |g:marching_debug| に 1、もしくは
+	|:MarchingEnableDebug| 行った場合に記録されます。
+
+:MarchingEnableDebug				*:MarchingEnableDebug*
+	デバッグを有効にします。
+
+:MarchingDisableDebug				*:MarchingDisableDebug*
+	デバッグを無効にします。
 
 ------------------------------------------------------------------------------
 関数						*marching-functions*

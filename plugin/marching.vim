@@ -46,6 +46,8 @@ command! -bar MarchingBufferClearCache call s:clear_cache()
 
 command! -bar MarchingDebugLog echo marching#log()
 command! -bar MarchingDebugClearLog call marching#clear_log()
+command! -bar MarchingEnableDebug  let g:marching_debug = 1
+command! -bar MarchingDisableDebug let g:marching_debug = 0
 
 
 let &cpo = s:save_cpo

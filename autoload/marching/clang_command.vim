@@ -180,6 +180,7 @@ endfunction
 
 function! marching#clang_command#check()
 	call marching#clear_cache_all()
+	call marching#clang_command#cancel()
 	let old_time = g:marching_wait_time
 	let context = marching#current_context()
 	let old_debug = g:marching_debug

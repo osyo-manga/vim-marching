@@ -232,7 +232,7 @@ function! marching#complete(findstart, base)
 		let s:completion = []
 		let failed = g:marching_enable_neocomplete ? -1 : -3
 		" コメント時は補完しない
-		if synIDattr(synIDtrans(synID(line("."), col("."), 1)), 'name') ==# "Comment"
+		if synIDattr(synIDtrans(synID(line("."), col(".")-1, 1)), 'name') ==# "Comment"
 			return failed
 		endif
 		" インクルード行では補完しない
@@ -275,7 +275,7 @@ function! marching#complete(findstart, base)
 endfunction
 
 
-augroup plugin-marching-clang_command
+augroup plugin-marching
 	autocmd!
 	autocmd CompleteDone * let s:complete_started = 0
 augroup END

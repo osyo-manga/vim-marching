@@ -157,11 +157,13 @@ function! s:make_context(pos, bufnr)
 
 	let keyword_line = s:remove_comment(join(getbufline(bufnr("%"), line(".") - 5 < 1 ? 1 : line(".") - 5, line(".") - 1), "\n") . "\n"  . line)
 	let keyword_line = substitute(keyword_line, '\n', ' ', 'g')
+	let pos = [a:pos[0], len(line) - len(input) + 1]
 	return {
 \		"complete_word" : complete_word,
-\		"pos" : [a:pos[0], len(line) - len(input) + 1],
+\		"pos" : pos,
 \		"bufnr" : a:bufnr,
-\		"keyword" : s:get_keyword(keyword_line)
+\		"keyword" : s:get_keyword(keyword_line),
+\		"complete_base" : getline(".")[pos[1]-1 : col(".")]
 \	}
 endfunction
 

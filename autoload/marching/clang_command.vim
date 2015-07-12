@@ -158,10 +158,9 @@ function! s:complete_process.start(context)
 	endif
 endfunction
 
-
 function! marching#clang_command#update_complete_process()
-	if has_key(s:complete_process.process, "apply")
-		call s:complete_process.process.apply()
+	if has_key(s:complete_process.process, "update")
+		call s:complete_process.process.update()
 	endif
 endfunction
 

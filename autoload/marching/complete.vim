@@ -20,9 +20,10 @@ endfunction
 
 
 function! marching#complete#popup_pos()
+	let key = &completeopt =~ '\(noinsert\|noselect\)' ? "" : "\<C-p>"
 	return !pumvisible() ? ""
-\		: g:marching_enable_auto_select ? "\<C-p>\<Down>"
-\		: "\<C-p>"
+\		: g:marching_enable_auto_select ? key . "\<Down>"
+\		: key
 endfunction
 
 

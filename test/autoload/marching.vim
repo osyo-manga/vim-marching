@@ -74,7 +74,9 @@ function! s:test_parse_keyword()
 	OwlCheck s:get_keyword("  x; hoge[1, 2](). ") ==# "hoge[1,2]()."
 	OwlCheck s:get_keyword("  x; hoge  [1, 2](). ") ==# "hoge[1,2]()."
 	OwlCheck s:get_keyword("hoge  <>::") ==# "hoge<>::"
-	OwlCheck s:get_keyword("hoge  {}::") ==# "hoge{}::"
+	OwlCheck s:get_keyword("hoge  {}::") ==# "::"
+
+	OwlCheck s:get_keyword("aaa.;bbb") ==# "aaa."
 endfunction
 
 

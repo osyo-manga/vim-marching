@@ -152,6 +152,13 @@ function! s:parse_complete_word(word)
 endfunction
 
 
+let g:marching#default_config = get(g:, "marching#default_config", {})
+let s:default_config = {}
+function! marching#get_config()
+	return extend(deepcopy(s:default_config), g:marching#default_config)
+endfunction
+
+
 function! s:make_context(pos, bufnr)
 	let line = get(getbufline(a:bufnr, a:pos[0]), 0)[ : a:pos[1]-2]
 	let [complete_word, input] = s:parse_complete_word(line)
@@ -164,7 +171,8 @@ function! s:make_context(pos, bufnr)
 \		"pos" : pos,
 \		"bufnr" : a:bufnr,
 \		"keyword" : s:get_keyword(keyword_line),
-\		"complete_base" : getline(".")[pos[1]-1 : col(".")]
+\		"complete_base" : getline(".")[pos[1]-1 : col(".")],
+\		"config" : marching#get_config()
 \	}
 endfunction
 
@@ -251,7 +259,13 @@ function! marching#complete(findstart, base)
 
 		let completion = marching#{g:marching_backend}#complete(s:context)
 		if type(completion) == type([])
+			if has_key(s:context.config, "ignore_pat")
+				let ignore_pat = s:context.config.ignore_pat
+				call filter(completion, "v:val.word !~ ignore_pat")
+			endif
+
 			let s:completion = completion
+
 			call s:add_cache(s:context, s:completion)
 			if !empty(s:completion)
 				return s:context.pos[1] - 1

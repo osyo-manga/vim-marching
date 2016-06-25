@@ -134,7 +134,6 @@ function! s:complete_process.start(context)
 	let self.process.parent = self
 	function! self.process.then(output, ...)
 		call marching#print_log("clang_command output", a:output)
-		Debug homu
 		let result = s:parse_complete_result(a:output)
 		call marching#print_log("clang_command result", string(result))
 		if empty(result)

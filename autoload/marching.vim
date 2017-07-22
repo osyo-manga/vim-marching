@@ -259,7 +259,8 @@ function! marching#complete(findstart, base)
 
 		let completion = marching#{g:marching_backend}#complete(s:context)
 		if type(completion) == type([])
-			if has_key(s:context.config, "ignore_pat")
+			let ignore = get(s:context.config, "ignore_pat", "")
+			if !empty(ignore)
 				let ignore_pat = s:context.config.ignore_pat
 				call filter(completion, "v:val.word !~ ignore_pat")
 			endif

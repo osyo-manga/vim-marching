@@ -31,6 +31,7 @@ function! marching#sync_clang_command#complete(context)
 		else
 			let result = system(command)
 		endif
+		call marching#print_log("clang_command result", result)
 
 		redraw
 		echo "marching completion finish"

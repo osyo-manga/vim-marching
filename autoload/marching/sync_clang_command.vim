@@ -33,6 +33,13 @@ function! marching#sync_clang_command#complete(context)
 		endif
 		call marching#print_log("clang_command result", result)
 
+		if v:shell_error
+			echo command
+			echo result
+			throw "marching.vim error\n" . command . "\n" . result
+			return []
+		endif
+
 		redraw
 		echo "marching completion finish"
 		return marching#clang_command#parse_complete_result(result)

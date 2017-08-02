@@ -60,6 +60,11 @@ imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
 imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 
 
+" _数値 から始まる候補を無視する
+let g:marching#default_config = {
+\	"ignore_pat" : '^_\D'
+\}
+
 " 非同期ではなくて、同期処理でコード補完を行う場合
 " この設定の場合は vimproc.vim に依存しない
 " let g:marching_backend = "sync_clang_command"

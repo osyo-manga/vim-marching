@@ -6,7 +6,8 @@ set cpo&vim
 function! marching#sync_clang_command#complete(context)
 	echo "marching completion start"
 
-	let tempfile = marching#make_tempfile_from_buffer(a:context.bufnr)
+	let tempfile = marching#make_tempfile(a:context.bufnr)
+" 	let tempfile = marching#make_tempfile_from_buffer(a:context.bufnr)
 	if !filereadable(tempfile)
 		return
 	endif
@@ -16,12 +17,14 @@ function! marching#sync_clang_command#complete(context)
 \			tempfile,
 \			a:context.pos[0],
 \			a:context.pos[1],
-\				get(b:, "marching_clang_command_default_options", '-cc1 -fsyntax-only')
-\			  . " "
-\			  . marching#clang_command#include_opt()
-\			  . " "
-\			  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
+\			marching#clang_command#option(),
 \		)
+" \				get(b:, "marching_clang_command_default_options", '')
+" \			  . " "
+" \			  . marching#clang_command#include_opt()
+" \			  . " "
+" \			  . get(b:, "marching_clang_command_option", g:marching_clang_command_option)
+" \		)
 		call marching#print_log("sync_clang_command command", command)
 
 		let has_vimproc = 0

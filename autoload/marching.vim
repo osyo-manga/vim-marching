@@ -37,6 +37,22 @@ function! marching#make_tempfile_from_buffer(bufnr)
 endfunction
 
 
+function! marching#make_tempfile(expr)
+	if bufexists(a:expr)
+		return marching#make_tempfile_from_buffer(a:expr)
+	end
+	if !filereadable(a:expr)
+		throw ""
+		return
+	endif
+" 	let ext = fnamemodify(a:expr, ":e")
+" 	let tempname = fnamemodify(bufname(a:expr), ":p:h") . "/marching_complete_temp." . ext
+	let tempname = tempname()
+	call writefile(readfile(a:expr), tempname)
+	return tempname
+endfunction
+
+
 function! marching#get_included_files(bufnr)
 	return filter(map(getline(a:bufnr, 1, "$"), 'matchstr(v:val, ''^\s*#\s*include\s*[<"]\zs.*\ze[">]'')'), '!empty(v:val)')
 endfunction

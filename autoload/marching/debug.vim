@@ -29,5 +29,13 @@ function! marching#debug#check()
 	return marching#log() . "\n" . join(result, "\n")
 endfunction
 
+
+function! marching#debug#check2()
+	let cmd = marching#debug#run_command()
+	echo system(g:marching_clang_command . " -v")
+	echo cmd
+	echo system(cmd)
+endfunction
+
 let &cpo = s:save_cpo
 unlet s:save_cpo

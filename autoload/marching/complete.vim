@@ -69,7 +69,8 @@ function! s:clang_complete_command(cmd, file, line, col, args)
 	if !filereadable(a:file)
 		return ""
 	endif
-	return printf("%s -cc1 -std=c++11 -fsyntax-only %s -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
+	" http://yuttie.hatenablog.jp/entry/2014/02/11/151610
+	return printf("%s -std=c++11 -fsyntax-only -Xclang %s -code-completion-at=%s:%d:%d %s", a:cmd, a:args, a:file, a:line, a:col, a:file)
 endfunction
 
 

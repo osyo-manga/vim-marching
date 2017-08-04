@@ -50,7 +50,7 @@ command! -bar MarchingEnableDebug  let g:marching_debug = 1
 command! -bar MarchingDisableDebug let g:marching_debug = 0
 
 command! -bar MarchingDebugCheck call marching#clang_command#check() | MarchingDebugLog
-command! -bar MarchingDebugTest  call marching#test#run_all()
+command! -bar -bang MarchingDebugTest call marching#test#run_all("<bang>" == "!")
 
 
 let &cpo = s:save_cpo

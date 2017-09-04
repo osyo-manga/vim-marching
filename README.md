@@ -1,10 +1,10 @@
-#marching.vim
+# marching.vim
 
 Clang を使用して非同期で C++ のコード補完を行うためのプラグインです。
 
 Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/master/doc/marching.txt).
 
-##Requirement
+## Requirement
 
 * __Executable__
  * __[Clang](http://clang.llvm.org/)__
@@ -12,7 +12,7 @@ Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/ma
  * __[vimproc.vim](https://github.com/Shougo/vimproc.vim)__
 
 
-##Screencapture
+## Screencapture
 ![test](https://f.cloud.github.com/assets/214488/1419479/bf4c31d6-3fcc-11e3-97fb-928f8006691e.gif)
 
 ![marching1](https://f.cloud.github.com/assets/214488/1320244/ff09818e-334c-11e3-8569-075f31b50984.gif)
@@ -21,7 +21,7 @@ Document in English is [here](https://github.com/osyo-manga/vim-marching/blob/ma
 ![marching2](https://f.cloud.github.com/assets/214488/1320247/0d6e8e5e-334d-11e3-9a62-3b586a247144.gif)
 
 
-##Setting
+## Setting
 ```vim
 " clang コマンドの設定
 let g:marching_clang_command = "C:/clang.exe"
@@ -71,7 +71,7 @@ let g:marching#default_config = {
 ```
 
 
-##Future
+## Future
 
 * C++ 以外の対応
  * Objective-C
@@ -79,7 +79,7 @@ let g:marching#default_config = {
 * neocomplete.vim との連携
 
 
-##License
+## License
 
 [NYSL](http://www.kmonos.net/nysl/)
 
